@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react'
+import React, { useCallback, useEffect, useState, useRef, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useForm, Controller } from 'react-hook-form'
 import styled from 'styled-components'
@@ -49,17 +49,17 @@ const messages = defineMessages({
 
 
 const xAxisOptions = [
-  'measurement_start_day',
-  'category_code',
-  'probe_cc',
+  ['measurement_start_day', []],
+  ['category_code', ['web_connectivity']],
+  ['probe_cc', []],
 ]
 
 const yAxisOptions = [
-  'domain',
-  'category_code',
-  'probe_cc',
-  'probe_asn',
-  ''
+  ['domain', ['web_connectivity']],
+  ['category_code', ['web_connectivity']],
+  ['probe_cc', []],
+  ['probe_asn', []],
+  ['', []]
 ]
 
 const testsWithValidDomainFilter = [
@@ -166,6 +166,22 @@ export const Form = ({ onSubmit, testNames, query }) => {
     }
   }, [getValues, onConfirm])
 
+  const xAxisOptionsFiltered = useMemo(() => {
+    console.log(`testNameValue changed to ${testNameValue}. Changing xAxis Options to:`)
+    const newXAxisOptions = xAxisOptions
+      .filter(([option, validTestNames]) => validTestNames.length === 0 || validTestNames.includes(testNameValue))
+      .map(([option]) => option)
+    return newXAxisOptions
+  }, [testNameValue])
+
+  const yAxisOptionsFiltered = useMemo(() => {
+    console.log(`testNameValue changed to ${testNameValue}. Changing yAxis Options to:`)
+    const newYAxisOptions = yAxisOptions
+      .filter(([option, validTestNames]) => validTestNames.length === 0 || validTestNames.includes(testNameValue))
+      .map(([option]) => option)
+    return newYAxisOptions
+  }, [testNameValue])
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ConfirmationModal show={showConfirmation} onConfirm={onConfirm} onCancel={onCancel} />
@@ -259,7 +275,7 @@ export const Form = ({ onSubmit, testNames, query }) => {
             control={control}
             render={({field}) => (
               <Select {...field} width={1}>
-                {xAxisOptions.map((option, idx) => (
+                {xAxisOptionsFiltered.map((option, idx) => (
                   <option key={idx} value={option}>{option.length > 0 ? intl.formatMessage(messages[option]) : option}</option>
                 ))}
               </Select>
@@ -275,7 +291,7 @@ export const Form = ({ onSubmit, testNames, query }) => {
             control={control}
             render={({field}) => (
               <Select {...field} width={1}>
-                {yAxisOptions.map((option, idx) => (
+                {yAxisOptionsFiltered.map((option, idx) => (
                   <option key={idx} value={option}>{option.length > 0 ? intl.formatMessage(messages[option]) : option}</option>
                 ))}
               </Select>
