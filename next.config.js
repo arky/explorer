@@ -49,6 +49,7 @@ module.exports = withSentryConfig({
         'process.env.GIT_COMMIT_REF': JSON.stringify(process.env.GIT_COMMIT_REF),
         'process.env.GIT_COMMIT_TAGS': JSON.stringify(process.env.GIT_COMMIT_TAGS),
         'process.env.DEFAULT_LOCALE': DEFAULT_LOCALE,
+        'process.env.LOCALE': JSON.stringify(getSupportedLanguages()),
         'process.env.WDYR': JSON.stringify(process.env.WDYR),
       })
     )
