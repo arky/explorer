@@ -36,7 +36,6 @@ module.exports = withSentryConfig({
       },
     ]
   },
-
   i18n: {
     locales: getSupportedLanguages(),
     defaultLocale: DEFAULT_LOCALE,
