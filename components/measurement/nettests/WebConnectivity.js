@@ -94,7 +94,7 @@ const RequestResponseContainer = ({request}) => {
     // e.g ?report_id=20180709T222326Z_AS37594_FFQFSoqLJWYMgU0EnSbIK7PxicwJTFenIz9PupZYZWoXwtpCTy
     request.failure ? (
       <Box>
-        <FormattedMessage id='Measurement.Details.Websites.HTTP.NoData' />
+        <FormattedMessage id='General.NoData' />
       </Box>
     ) : (
     // !request.failure &&
@@ -146,7 +146,7 @@ RequestResponseContainer.propTypes = {
 
 const FailureString = ({failure}) => {
   if (typeof failure === 'undefined') {
-    return (<FormattedMessage id='Measurement.Details.Websites.Failures.Values.Unknown' />)
+    return (<FormattedMessage id='General.NoData' />)
   }
   if (!failure) {
     return (
@@ -536,7 +536,7 @@ const WebConnectivityDetails = ({
                       </Box>
                     </React.Fragment>
                   ) : (
-                    <FormattedMessage id='Measurement.Details.Websites.DNSQueries.NoData' />
+                    <FormattedMessage id='General.NoData' />
                   )
                 }
               />
@@ -563,7 +563,7 @@ const WebConnectivityDetails = ({
                       </Flex>
                     ))
                   ) : (
-                    <FormattedMessage id='Measurement.Details.Websites.TCP.NoData' />
+                    <FormattedMessage id='General.NoData' />
                   )
                 }
               />
@@ -580,7 +580,7 @@ const WebConnectivityDetails = ({
                       {requests.map((request, index) => <RequestResponseContainer key={index} request={request} />)}
                     </Box>
                   ) : (
-                    <FormattedMessage id='Measurement.Details.Websites.HTTP.NoData' />
+                    <FormattedMessage id='General.NoData' />
                   )
                 }
               />
