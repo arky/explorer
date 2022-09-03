@@ -10,16 +10,15 @@ import countryUtil from 'country-util'
 import styled from 'styled-components'
 import { StickyContainer, Sticky } from 'react-sticky'
 
-import NavBar from '../../components/NavBar'
-import Flag from '../../components/Flag'
-import Layout from '../../components/Layout'
-import PageNavMenu from '../../components/country/PageNavMenu'
-import Overview from '../../components/country/Overview'
-import WebsitesSection from '../../components/country/Websites'
-import AppsSection from '../../components/country/Apps'
-// import NetworkPropertiesSection from '../../components/country/NetworkProperties'
-import { CountryContextProvider } from '../../components/country/CountryContext'
-import CountryHead from '../../components/country/CountryHead'
+import NavBar from 'components/NavBar'
+import Flag from 'components/Flag'
+import Layout from 'components/Layout'
+import PageNavMenu from 'components/country/PageNavMenu'
+import Overview from 'components/country/Overview'
+import WebsitesSection from 'components/country/Websites'
+import AppsSection from 'components/country/Apps'
+import { CountryContextProvider } from 'components/country/CountryContext'
+import CountryHead from 'components/country/CountryHead'
 
 const getCountryReports = (countryCode, data) => {
   const reports = data.filter((article) => (
@@ -100,7 +99,7 @@ const Country = ({ countryCode, countryName, overviewStats, reports, ...coverage
       })
     }
     fetcher(testGroupList)
-    
+
   }, [countryCode, setNewData])
 
   const { testCoverage, networkCoverage } = newData !== false ? newData : coverageDataSSR
