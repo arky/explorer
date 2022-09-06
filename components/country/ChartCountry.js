@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { useRouter } from 'next/router'
+import dayjs from 'services/dayjs'
 import { Heading, Box, Flex } from 'ooni-components'
 import useSWR from 'swr'
 import GridChart, { prepareDataForGridChart } from 'components/aggregation/mat/GridChart'
@@ -12,9 +13,9 @@ const swrOptions = {
   dedupingInterval: 10 * 60 * 1000,
 }
 
-const Chart = React.memo(function Chart({testName, testGroup = null, title, queryParams = {}}) {
+const ChartCountry = React.memo(function Chart({testName, testGroup = null, title, queryParams = {}}) {
   const router = useRouter()
-  const { query: {since, until, asn} } = router
+  const { query: { countryCode} } = router
 
   const name = testName || testGroup.name
 
@@ -25,20 +26,21 @@ const Chart = React.memo(function Chart({testName, testGroup = null, title, quer
 
   const query = useMemo(() => ({
     ...params,
-    probe_asn: asn,
-    since: since,
-    until: until,
+    probe_cc: countryCode,
+    since: dayjs.utc().subtract(30, 'day').format('YYYY-MM-DD'),
+    until: dayjs.utc().add(1, 'day').format('YYYY-MM-DD'),
     ...testName && {test_name: testName}
-  }), [since, until, asn, params, testName])
+  }), [countryCode, params, testName])
 
   const apiQuery = useMemo(() => {
     const qs = new URLSearchParams(query).toString()
+    console.log(qs)
     return qs
   }, [query])
 
   const { data, error } = useSWR(
-    testGroup ? { query: apiQuery, 
-      testNames: testGroup.tests, 
+    testGroup ? { query: apiQuery,
+      testNames: testGroup.tests,
       groupKey: name
     } : apiQuery,
     testGroup ? MATMultipleFetcher : MATFetcher,
@@ -93,4 +95,4 @@ const Chart = React.memo(function Chart({testName, testGroup = null, title, quer
   )
 })
 
-export default Chart
+export default ChartCountry

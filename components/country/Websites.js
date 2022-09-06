@@ -1,7 +1,7 @@
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { Box, Text } from 'ooni-components'
-import Chart from './Chart'
+import ChartCountry from './ChartCountry'
 import SectionHeader from './SectionHeader'
 import { SimpleBox } from './boxes'
 import FormattedMarkdown from '../FormattedMarkdown'
@@ -23,7 +23,7 @@ const WebsitesSection = () => {
         </SimpleBox>
 
         <Box my={4}>
-          <Chart
+          <ChartCountry
             testName='web_connectivity'
             title={intl.formatMessage({id: 'Tests.Groups.Webistes.Name'})}
             queryParams={{axis_y: 'domain'}}
