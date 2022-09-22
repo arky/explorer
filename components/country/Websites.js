@@ -25,7 +25,6 @@ const WebsitesSection = () => {
         <Box my={4}>
           <ChartCountry
             testName='web_connectivity'
-            title={intl.formatMessage({id: 'Tests.Groups.Webistes.Name'})}
             queryParams={{axis_y: 'domain'}}
           />
         </Box>
