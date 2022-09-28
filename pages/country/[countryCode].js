@@ -152,7 +152,7 @@ const Country = ({ countryCode, countryName, overviewStats, reports, ...coverage
                   fetchTestCoverageData={fetchTestCoverageData}
                   featuredArticles={reports}
                 />
-                <WebsitesSection />
+                <WebsitesSection countryCode={countryCode} />
                 <AppsSection />
               </CountryContextProvider>
             </Box>
